@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace KarlStruv.ApiClient.Tests
 {
-    public class APIClientTest
+    public class APIClientEditModeTest
     {
         private GameObject gameObject;
         private APIClient apiClient;

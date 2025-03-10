@@ -2,24 +2,72 @@ using System.Collections;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
-using KarlStruv.ApiClient;
+using UnityEngine.UI;
 
-public class APIClientTest
+namespace KarlStruv.ApiClient.Tests
 {
-    // A Test behaves as an ordinary method
-    [Test]
-    public void APIClientTestSimplePasses()
+    public class APIClientPlayModeTest
     {
-        // Use the Assert class to test conditions
-    }
+        private GameObject gameObject;
+        private APIClient apiClient;
+        private Text mockDisplayText;
+        private Text mockPostText;
 
-    // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
-    // `yield return null;` to skip a frame.
-    [UnityTest]
-    public IEnumerator APIClientTestWithEnumeratorPasses()
-    {
-        // Use the Assert class to test conditions.
-        // Use yield to skip a frame.
-        yield return null;
+        [SetUp]
+        public void SetUp()
+        {
+            // Create a new GameObject and attach the APIClient script
+            gameObject = new GameObject();
+            apiClient = gameObject.AddComponent<APIClient>();
+
+            // Create a mock displayText object and assign it to APIClient
+            mockDisplayText = new GameObject().AddComponent<Text>();
+            apiClient.displayText = mockDisplayText;
+
+            // Create a mock postText object and assign it to APIClient
+            mockPostText = new GameObject().AddComponent<Text>();
+            apiClient.postText = mockPostText;
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            // Destroy all objects, so they don't interfere with other tests
+            Object.Destroy(gameObject);
+            Object.Destroy(mockDisplayText.gameObject);
+            Object.Destroy(mockPostText.gameObject);
+        }
+
+        [UnityTest]
+        public IEnumerator GetUser_UpdatesTextObject()
+        {
+            // Simulate real coroutine
+            yield return apiClient.StartCoroutine(FakeGetUserResponse("John Doe"));
+            // Check if the displayText object is updated to the mocked text
+            Assert.AreEqual("John Doe", apiClient.displayText.text);
+        }
+
+        private IEnumerator FakeGetUserResponse(string fakeResponse)
+        {
+            // Set the displayText to the fake response
+            apiClient.displayText.text = fakeResponse;
+            yield return null;
+        }
+
+        [UnityTest]
+        public IEnumerator GetUserPost_UpdatesTextObject()
+        {
+            // Simulate real coroutine
+            yield return apiClient.StartCoroutine(FakeGetUserPostResponse("This is a test post"));
+            // Check if the postText object is updated to the mocked text
+            Assert.AreEqual("This is a test post", apiClient.postText.text);
+        }
+
+        private IEnumerator FakeGetUserPostResponse(string fakeResponse)
+        {
+            // Set the postText to the fake response
+            apiClient.postText.text = fakeResponse;
+            yield return null;
+        }
     }
 }
