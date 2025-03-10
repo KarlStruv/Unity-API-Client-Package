@@ -1,5 +1,5 @@
 {
-  "name": "com.karlstruv.apiclient",
+  "name": "karlstruv.apiclient",
   "version": "1.0.0",
   "displayName": "API Client",
   "description": "A Unity package for handling API requests.",

@@ -3,7 +3,7 @@ using UnityEngine.Networking;
 using UnityEngine.UI;
 using System.Collections;
 
-namespace Com.KarlStruv.ApiClient
+namespace KarlStruv.ApiClient
 {
     public class APIClient : MonoBehaviour
     {
