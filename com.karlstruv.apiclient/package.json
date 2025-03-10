@@ -1,0 +1,11 @@
+{
+  "name": "com.karlstruv.apiclient",
+  "version": "1.0.0",
+  "displayName": "API Client",
+  "description": "A Unity package for handling API requests.",
+  "unity": "2024.1",
+  "author": {
+    "name": "Karlis Struve",
+    "email": "struve3@gmail.com"
+  }
+}
